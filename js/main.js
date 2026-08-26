@@ -31,13 +31,15 @@ function initTerminalLoader() {
 
     const terminalBody = document.querySelector('.terminal-body');
     const lines = [
-        { text: 'guest@kshirod:~$ initialize portfolio --all', delay: 100 },
-        { text: 'Initializing portfolio system core elements...', delay: 600 },
-        { text: 'Loading stylesheets, resources, and custom canvas...', delay: 1100 },
-        { text: 'Connecting to virtual Java Full Stack Environment... [OK]', delay: 1500 },
-        { text: 'Retrieving radar telemetry processing units... [OK]', delay: 1900 },
-        { text: 'Profile: Kshirod Kumar Sahoo (CSE Student / Aspiring SE)', delay: 2200 },
-        { text: 'Loading complete. Starting UI display...', delay: 2600 }
+        { text: 'guest@kshirod:~$ mvn spring-boot:run', delay: 100 },
+        { text: '[INFO] Scanning for projects...', delay: 500 },
+        { text: '[INFO] Bootstrapping Kshirod\'s Portfolio Engine v1.0.0...', delay: 900 },
+        { text: '[INFO] Starting PortfolioApplication using Java 17 on localhost', delay: 1300 },
+        { text: '[INFO] Loading profiles: dev-fullstack', delay: 1700 },
+        { text: '[INFO] Active database connection to MySQL pool: HikariDataSource [OK]', delay: 2100 },
+        { text: '[INFO] Initialized Spring WebSockets on /ws/vartalaap [OK]', delay: 2500 },
+        { text: '[INFO] Port 8080: Web UI starting on browser thread...', delay: 2900 },
+        { text: '[INFO] Welcome to Kshirod Kumar Sahoo\'s workspace.', delay: 3300 }
     ];
 
     lines.forEach((line) => {
@@ -59,7 +61,7 @@ function initTerminalLoader() {
         setTimeout(() => {
             loader.style.display = 'none';
         }, 600); // match transition duration
-    }, 3200);
+    }, 3900);
 }
 
 // Dark/Light Theme Switching Logic
