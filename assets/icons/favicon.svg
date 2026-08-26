@@ -2,12 +2,15 @@
   <!-- Rounded dark background matching the theme -->
   <rect width="32" height="32" rx="8" fill="#080c14" />
   
-  <!-- Left angled bracket (Teal) -->
-  <path d="M9 10 L3 16 L9 22" stroke="#38bdf8" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Left K (Teal Accent) -->
+  <g stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="8" y1="7" x2="8" y2="25" />
+    <path d="M15 7 L8 16 L15 25" />
+  </g>
   
-  <!-- Center forward slash (Purple) -->
-  <path d="M13 22 L19 10" stroke="#c084fc" stroke-width="2" fill="none" stroke-linecap="round" />
-  
-  <!-- Right angled bracket (Teal) -->
-  <path d="M23 10 L29 16 L23 22" stroke="#38bdf8" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Right K (Purple Accent) -->
+  <g stroke="#c084fc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="18" y1="7" x2="18" y2="25" />
+    <path d="M25 7 L18 16 L25 25" />
+  </g>
 </svg>
