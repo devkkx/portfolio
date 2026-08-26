@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Experience and achievements of Kshirod Kumar Sahoo, including LRDE DRDO, Java Technocrat, Acmegrade, GATE 2026, and National Level achievements.">
+    <title>Experience &amp; Achievements | Kshirod Kumar Sahoo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <style>
+        .exp-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .exp-card {
+            border-left: 3px solid var(--primary-color);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            padding-left: 2rem;
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--card-border);
+            border-right: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+            transition: border-color var(--transition-normal), transform var(--transition-normal);
+        }
+
+        .exp-card:hover {
+            border-left-color: var(--accent-color);
+            transform: translateX(4px);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .exp-role {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .exp-company {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .exp-date {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+        }
+
+        .exp-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .exp-list li {
+            position: relative;
+            padding-left: 1.25rem;
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .exp-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        /* Achievements styling */
+        .achievement-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-family: 'Fira Code', monospace;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="site-header">
+        <nav class="nav-container" aria-label="Main Navigation">
+            <div class="logo">
+                <a href="index.html" aria-label="Kshirod Kumar Sahoo Home">
+                    <span>KSHIROD</span>
+                    <span class="logo-tag">&lt;DEV&gt;</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="experience.html" class="active">Experience</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark mode">
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="mobile-nav-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <section class="section-container animate-slide-up">
+            <h1 class="section-title">Work Experience &amp; Internships</h1>
+            
+            <div class="exp-timeline">
+                <!-- DRDO LRDE -->
+                <div class="glass-card exp-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-role">Ex-Trainee (Radar Subsystems Exposure)</h3>
+                            <span class="exp-company">Electronics &amp; Radar Development Establishment (LRDE), DRDO</span>
+                        </div>
+                        <span class="exp-date">Bengaluru, India</span>
+                    </div>
+                    <ul class="exp-list">
+                        <li>Gained high-level technical exposure to telemetry data flow parsing in defense radar communication systems.</li>
+                        <li>Studied implementation patterns of digital signal processors decoding complex ASTERIX CAT240 byte streams.</li>
+                        <li>Explored statistical filter integration including 2D Kalman Filters smoothing target coordinate estimates.</li>
+                        <li>Reviewed testing patterns in professional defense engineering projects, acquiring strict, high-reliability development principles.</li>
+                    </ul>
+                </div>
+
+                <!-- Java Technocrat -->
+                <div class="glass-card exp-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-role">Java Backend Development Trainee</h3>
+                            <span class="exp-company">Java Technocrat</span>
+                        </div>
+                        <span class="exp-date">Bhubaneswar, Odisha</span>
+                    </div>
+                    <ul class="exp-list">
+                        <li>Underswent intensive structural training in Core Java (multithreading, file IO, JVM execution memory stack, exceptions mapping).</li>
+                        <li>Acquired experience in Advanced Java environments (JDBC database integrations, Servlets container mappings, JSP template engines).</li>
+                        <li>Practiced MVC backend paradigms, connecting Java objects directly to MySQL relational structures.</li>
+                        <li>Coded scalable algorithms for backend thread isolation, sockets connections, and multi-client request processing.</li>
+                    </ul>
+                </div>
+
+                <!-- Acmegrade -->
+                <div class="glass-card exp-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-role">Web Development Intern</h3>
+                            <span class="exp-company">Acmegrade Pvt. Ltd. (In Collaboration with IIT Bombay)</span>
+                        </div>
+                        <span class="exp-date">Online</span>
+                    </div>
+                    <ul class="exp-list">
+                        <li>Collaborated on building multi-tier responsive web properties using HTML5, CSS3, JavaScript, and PHP templates.</li>
+                        <li>Worked with GitHub version partitions, participating in branch merges, code alignments, and issues tracking.</li>
+                        <li>Developed interface prototypes, implementing responsive layout structures satisfying cross-device standards.</li>
+                        <li>Studied API mapping protocols, integrating frontend widgets with relational database backends.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Achievements section -->
+            <div class="fade-in-section" style="margin-top: 5rem; border-top: 1px solid var(--card-border); padding-top: 4rem;">
+                <h2 class="section-title">Achievements</h2>
+                <div class="grid-container">
+                    
+                    <!-- GATE -->
+                    <div class="glass-card">
+                        <span class="achievement-badge">Academic Milestone</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">GATE 2026 Qualified</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Qualified the Graduate Aptitude Test in Engineering (GATE) in Computer Science &amp; Information Technology, proving high analytical and logical capability.</p>
+                    </div>
+
+                    <!-- NEST -->
+                    <div class="glass-card">
+                        <span class="achievement-badge">Scholastic Eligibility</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">NEST 2023 Qualifier</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Successfully qualified the National Entrance Screening Test (NEST) 2023, showcasing advanced problem-solving skill in core physical and math sciences.</p>
+                    </div>
+
+                    <!-- Biodiversity Quiz -->
+                    <div class="glass-card">
+                        <span class="achievement-badge">National Winner</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">National Quiz 1st Prize</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Won the First Prize at the prestigious National-Level Quiz Competition sponsored by the National Biodiversity Authority, competing against top universities.</p>
+                    </div>
+
+                    <!-- Hackathon -->
+                    <div class="glass-card">
+                        <span class="achievement-badge">Team Competition</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Horizon Hackathon 2025</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Selected as a participant in the Horizon Hackathon 2025, coding backend WebSocket adapters for real-time dashboards.</p>
+                    </div>
+
+                    <!-- Voters Day -->
+                    <div class="glass-card">
+                        <span class="achievement-badge">Co-curricular</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">National Voters Day Champion</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Awarded 1st Prize in the State/College National Voters Day quiz panel highlighting quick logical processing and general awareness.</p>
+                    </div>
+
+                    <!-- School Academic -->
+                    <div class="glass-card">
+                        <span class="achievement-badge">Early Honors</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Scholastic Excellence</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Earned multiple first-rank trophies and merit certificates during high school and secondary education math contests.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-socials">
+                <a href="https://github.com/devkkx" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/kshirod-kumar-sahoo-2a0530296/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="mailto:kshirodsahoo2003@gmail.com" aria-label="Send Email">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+            </div>
+            <p class="footer-text">&copy; 2026 Kshirod Kumar Sahoo. All rights reserved. Portfolio designed for engineering recruitment.</p>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

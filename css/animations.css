@@ -1,0 +1,115 @@
+/* Custom Keyframes and Classes for Animations */
+
+/* Rotating typing cursor */
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.25em;
+    background-color: var(--primary-color);
+    margin-left: 2px;
+    animation: blink 0.75s step-end infinite;
+    vertical-align: middle;
+}
+
+@keyframes blink {
+    from, to { background-color: transparent }
+    50% { background-color: var(--primary-color); }
+}
+
+/* Floating Technology Icons */
+.floating-icon {
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-icon:nth-child(2n) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+
+.floating-icon:nth-child(3n) {
+    animation-delay: -4s;
+    animation-duration: 5s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Pulse Glow Keyframes */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+    }
+    50% {
+        box-shadow: 0 4px 30px var(--primary-glow);
+        border-color: var(--card-hover-border);
+    }
+}
+
+.glow-pulse {
+    animation: pulse-glow 3s infinite;
+}
+
+/* Slide in animation utility */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-up {
+    animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* Radar sweeping light beam animation */
+@keyframes radar-sweep {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.radar-sweeper {
+    transform-origin: 50% 50%;
+    animation: radar-sweep 4s linear infinite;
+}
+
+/* Target blinking simulation */
+@keyframes target-ping {
+    0% {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+}
+
+.target-pinging {
+    animation: target-ping 1.5s ease-in-out infinite;
+}

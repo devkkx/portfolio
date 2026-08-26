@@ -1,0 +1,121 @@
+/* Media Queries and Responsive Rules */
+
+@media (max-width: 1024px) {
+    :root {
+        --max-width: 950px;
+    }
+    
+    .section-container {
+        padding: 4rem 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 2.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --max-width: 100%;
+    }
+    
+    /* Hamburger Menu Toggle Display */
+    .mobile-nav-toggle {
+        display: block;
+    }
+    
+    /* Responsive Collapsible Navigation Overlay */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background-color: var(--bg-color);
+        border-left: 1px solid var(--card-border);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 5rem 3rem;
+        gap: 2rem;
+        z-index: 1000;
+        transition: right var(--transition-normal) cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+    
+    body.light-theme .nav-links {
+        background-color: rgba(248, 250, 252, 0.95);
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-links a {
+        font-size: 1.25rem;
+        width: 100%;
+        display: block;
+    }
+    
+    /* Transform Hamburger icon when active */
+    .mobile-nav-toggle.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+    
+    .mobile-nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-nav-toggle.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-container {
+        padding: 1rem 1.5rem;
+    }
+    
+    .section-container {
+        padding: 3.5rem 1.25rem;
+    }
+    
+    .grid-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2.25rem;
+    }
+    
+    .btn-container {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-container {
+        padding: 3rem 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .glass-card {
+        padding: 1.5rem;
+    }
+    
+    .logo a {
+        font-size: 1.25rem;
+    }
+}

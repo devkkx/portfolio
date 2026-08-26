@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Kshirod Kumar Sahoo. Open for software engineering positions, Java backend opportunities, and system collaborations.">
+    <title>Contact Me | Kshirod Kumar Sahoo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 3rem;
+            margin-top: 2rem;
+            align-items: start;
+        }
+
+        .contact-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            background-color: var(--primary-glow);
+            color: var(--primary-color);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--card-border);
+        }
+
+        .contact-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Form styling */
+        .form-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            background-color: rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 0.85rem 1.25rem;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+            width: 100%;
+        }
+        
+        body.light-theme .form-input {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .validation-error {
+            font-size: 0.8rem;
+            color: var(--accent-red);
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .toast-msg {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            text-align: center;
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        .toast-success {
+            background-color: rgba(74, 222, 128, 0.1);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="site-header">
+        <nav class="nav-container" aria-label="Main Navigation">
+            <div class="logo">
+                <a href="index.html" aria-label="Kshirod Kumar Sahoo Home">
+                    <span>KSHIROD</span>
+                    <span class="logo-tag">&lt;DEV&gt;</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="experience.html">Experience</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark mode">
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="mobile-nav-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <section class="section-container animate-slide-up">
+            <h1 class="section-title">Get In Touch</h1>
+            <p style="color: var(--text-secondary); max-width: 600px; margin-bottom: 3rem;">
+                I am always open to discussing software engineering opportunities, innovative projects, collaborations, and technology.
+            </p>
+
+            <div class="contact-grid">
+                <!-- Left: contact items -->
+                <div class="contact-info-list">
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h2 style="font-size: 1.25rem; margin-bottom: 1.5rem;">Connection Profile</h2>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <!-- Name -->
+                            <div class="contact-info-item">
+                                <div class="contact-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); display: block;">NAME</span>
+                                    <strong style="color: var(--text-primary);">Kshirod Kumar Sahoo</strong>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="contact-info-item">
+                                <div class="contact-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); display: block;">EMAIL</span>
+                                    <a href="mailto:kshirodsahoo2003@gmail.com" style="font-weight: 600;">kshirodsahoo2003@gmail.com</a>
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="contact-info-item">
+                                <div class="contact-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); display: block;">LOCATION</span>
+                                    <span style="font-weight: 600; color: var(--text-primary);">Odisha, India</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Form -->
+                <div class="glass-card" style="padding: 2.25rem;">
+                    <form id="contact-form" novalidate>
+                        <!-- Name field -->
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+                            <span id="name-error" class="validation-error">Please enter your name.</span>
+                        </div>
+
+                        <!-- Email field -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" required>
+                            <span id="email-error" class="validation-error">Please enter a valid email address.</span>
+                        </div>
+
+                        <!-- Subject -->
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" name="subject" class="form-input" placeholder="Collaboration / Recruitment" required>
+                            <span id="subject-error" class="validation-error">Please specify a subject.</span>
+                        </div>
+
+                        <!-- Message -->
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" name="message" class="form-input form-textarea" placeholder="Hello Kshirod, I would like to discuss..." required></textarea>
+                            <span id="message-error" class="validation-error">Please write your message.</span>
+                        </div>
+
+                        <!-- Send Button -->
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                            Send Message
+                        </button>
+                        
+                        <div id="form-toast" class="toast-msg toast-success" role="alert">
+                            Your message has been sent successfully! I will get back to you shortly.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-socials">
+                <a href="https://github.com/devkkx" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/kshirod-kumar-sahoo-2a0530296/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="mailto:kshirodsahoo2003@gmail.com" aria-label="Send Email">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+            </div>
+            <p class="footer-text">&copy; 2026 Kshirod Kumar Sahoo. All rights reserved. Portfolio designed for engineering recruitment.</p>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+    
+    <!-- Local Contact Form Validation -->
+    <script>
+        const form = document.getElementById('contact-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const subjectInput = document.getElementById('subject');
+        const messageInput = document.getElementById('message');
+        const toast = document.getElementById('form-toast');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Reset errors
+            document.querySelectorAll('.validation-error').forEach(el => el.style.display = 'none');
+            toast.style.display = 'none';
+
+            // Validate Name
+            if (!nameInput.value.trim()) {
+                document.getElementById('name-error').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validate Email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validate Subject
+            if (!subjectInput.value.trim()) {
+                document.getElementById('subject-error').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validate Message
+            if (!messageInput.value.trim()) {
+                document.getElementById('message-error').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Mock successfully sent email
+                toast.style.display = 'block';
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>

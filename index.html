@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kshirod Kumar Sahoo - Personal Portfolio. Software Engineer, Java Full Stack Developer, Spring Boot Developer, and Ex-Trainee at LRDE, DRDO.">
+    <meta name="keywords" content="Kshirod Kumar Sahoo, Software Engineer, Java Full Stack, Spring Boot Developer, Portfolio, Backend Developer, Java Developer, DRDO LRDE, CSE Indira Gandhi Institute of Technology">
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Kshirod Kumar Sahoo | Software Engineer & Java Full Stack Developer">
+    <meta property="og:description" content="Explore the portfolio of Kshirod Kumar Sahoo, Java Backend & Full Stack Specialist. GATE 2026 Qualified & Ex-Trainee at DRDO.">
+    <meta property="og:type" content="website">
+    
+    <title>Kshirod Kumar Sahoo | Software Engineer & Java Full Stack Developer</title>
+    
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Background Interactivity Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Professional Loading screen -->
+    <div id="loader" aria-live="polite">
+        <div class="loader-content">
+            <div class="terminal-header">
+                <span>PORTFOLIO_SYSTEM_INIT</span>
+                <span>v1.0.0</span>
+            </div>
+            <div class="terminal-body">
+                <span class="terminal-cursor"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="site-header">
+        <nav class="nav-container" aria-label="Main Navigation">
+            <div class="logo">
+                <a href="index.html" aria-label="Kshirod Kumar Sahoo Home">
+                    <span>KSHIROD</span>
+                    <span class="logo-tag">&lt;DEV&gt;</span>
+                </a>
+            </div>
+
+            <!-- Accessibility-oriented Nav Elements -->
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="experience.html">Experience</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <!-- Theme switcher -->
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark mode">
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+
+                <!-- Mobile menu burger -->
+                <button class="mobile-nav-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="section-container hero-section animate-slide-up" style="display: flex; min-height: calc(100vh - 180px); align-items: center; justify-content: center; padding-top: 2rem;">
+            <div style="width: 100%;">
+                <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: center;">
+                    <div>
+                        <span class="logo-tag" style="font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase;">Hello, I am</span>
+                        <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; margin: 0.5rem 0; line-height: 1.1; background: linear-gradient(90deg, var(--text-primary), var(--primary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            KSHIROD KUMAR SAHOO
+                        </h1>
+                        <h2 style="font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 600; color: var(--text-secondary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                            An aspiring <span id="role-rotator" data-roles='["Java Full Stack Developer", "Software Engineer", "Backend Developer", "Spring Boot Developer", "Problem Solver"]' style="color: var(--primary-color);">Java Full Stack Developer</span><span class="typing-cursor"></span>
+                        </h2>
+                        <p style="font-size: clamp(1rem, 2vw, 1.1rem); color: var(--text-secondary); max-width: 600px; margin-bottom: 2.5rem; line-height: 1.7;">
+                            I am a Computer Science Engineering student and aspiring Software Engineer passionate about building scalable backend systems, full-stack applications, and intelligent software solutions.
+                        </p>
+                        
+                        <div class="btn-container">
+                            <a href="projects.html" class="btn btn-primary" aria-label="View Projects">
+                                View My Projects
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                            <a href="contact.html" class="btn btn-secondary" aria-label="Contact Me">Contact Me</a>
+                        </div>
+                    </div>
+
+                    <!-- Side graphic area -->
+                    <div style="display: flex; justify-content: center; position: relative;">
+                        <!-- Glassmorphic Tech Box -->
+                        <div class="glass-card glow-pulse" style="width: 100%; max-width: 380px; padding: 2rem; font-family: 'Fira Code', monospace; font-size: 0.85rem; border-color: rgba(56,189,248,0.15);">
+                            <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
+                                <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: var(--accent-red);"></span>
+                                <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b;"></span>
+                                <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: var(--accent-green);"></span>
+                            </div>
+                            <span style="color: #60a5fa;">public class</span> <span style="color: var(--accent-color);">DeveloperProfile</span> {<br>
+                            &nbsp;&nbsp;<span style="color: #60a5fa;">private String</span> name = <span style="color: var(--accent-green);">"Kshirod"</span>;<br>
+                            &nbsp;&nbsp;<span style="color: #60a5fa;">private String[]</span> stack = {<span style="color: var(--accent-green);">"Java"</span>, <span style="color: var(--accent-green);">"Spring Boot"</span>, <span style="color: var(--accent-green);">"SQL"</span>};<br>
+                            &nbsp;&nbsp;<span style="color: #60a5fa;">private boolean</span> gateQualified = <span style="color: #f59e0b;">true</span>;<br>
+                            &nbsp;&nbsp;<span style="color: #60a5fa;">private double</span> cgpa = <span style="color: #f59e0b;">9.22</span>;<br>
+                            <br>
+                            &nbsp;&nbsp;<span style="color: #60a5fa;">public void</span> code() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span style="color: var(--accent-green);">"Building scalable solutions..."</span>);<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Highlights Section -->
+        <section class="section-container fade-in-section" style="border-top: 1px solid var(--card-border);">
+            <h2 class="section-title">Quick Highlights</h2>
+            <div class="grid-container">
+                <!-- GATE 2026 Card -->
+                <div class="glass-card" style="position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -10px; right: -10px; width: 60px; height: 60px; background: radial-gradient(var(--primary-glow), transparent); border-radius: 50%;"></div>
+                    <div style="font-size: 2.25rem; margin-bottom: 1rem;">🎯</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">GATE 2026 Qualified</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Qualified the Graduate Aptitude Test in Engineering in Computer Science with strong percentile scores.</p>
+                </div>
+                <!-- DRDO Card -->
+                <div class="glass-card" style="position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -10px; right: -10px; width: 60px; height: 60px; background: radial-gradient(var(--accent-glow), transparent); border-radius: 50%;"></div>
+                    <div style="font-size: 2.25rem; margin-bottom: 1rem;">🛡️</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Ex-Trainee at LRDE, DRDO</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Acquired exposure to professional defense research systems, working on radar telemetry parser and Kalman state tracking.</p>
+                </div>
+                <!-- CGPA Card -->
+                <div class="glass-card" style="position: relative; overflow: hidden;">
+                    <div style="font-size: 2.25rem; margin-bottom: 1rem;">🎓</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">9.22 Cumulative GPA</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Maintained top academic ranking throughout Computer Science Engineering studies at IGIT Sarang.</p>
+                </div>
+                <!-- Java Card -->
+                <div class="glass-card" style="position: relative; overflow: hidden;">
+                    <div style="font-size: 2.25rem; margin-bottom: 1rem;">☕</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Java & Spring Boot</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Skilled in Core and Advanced Java, multithreading, REST APIs, and microservice architectures.</p>
+                </div>
+                <!-- Full Stack Card -->
+                <div class="glass-card" style="position: relative; overflow: hidden;">
+                    <div style="font-size: 2.25rem; margin-bottom: 1rem;">💻</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Full Stack Development</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Building complete web services incorporating responsive HTML5/CSS3/JS, WebSockets, and database persistence.</p>
+                </div>
+                <!-- Quiz card -->
+                <div class="glass-card" style="position: relative; overflow: hidden;">
+                    <div style="font-size: 2.25rem; margin-bottom: 1rem;">🏆</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">National Level Achievements</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Secured 1st Prize in national level quizzes sponsored by the National Biodiversity Authority, along with other scholastic honors.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-socials">
+                <a href="https://github.com/devkkx" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/kshirod-kumar-sahoo-2a0530296/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="mailto:kshirodsahoo2003@gmail.com" aria-label="Send Email">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+            </div>
+            <p class="footer-text">&copy; 2026 Kshirod Kumar Sahoo. All rights reserved. Portfolio designed for engineering recruitment.</p>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

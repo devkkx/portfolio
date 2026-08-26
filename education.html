@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Education qualifications and technical certifications of Kshirod Kumar Sahoo, B.Tech CSE student at IGIT Sarang.">
+    <title>Education &amp; Certifications | Kshirod Kumar Sahoo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <style>
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .edu-card {
+            border-top: 3px solid var(--primary-color);
+            position: relative;
+        }
+
+        .edu-gpa {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.15rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-top: 1rem;
+            display: inline-block;
+            background-color: var(--accent-glow);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cert-card {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .cert-icon-box {
+            background-color: var(--primary-glow);
+            color: var(--primary-color);
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid var(--card-border);
+        }
+
+        .cert-placeholder-img {
+            margin-top: 1rem;
+            height: 120px;
+            background-color: rgba(0, 0, 0, 0.15);
+            border: 1px dashed var(--card-border);
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        body.light-theme .cert-placeholder-img {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="site-header">
+        <nav class="nav-container" aria-label="Main Navigation">
+            <div class="logo">
+                <a href="index.html" aria-label="Kshirod Kumar Sahoo Home">
+                    <span>KSHIROD</span>
+                    <span class="logo-tag">&lt;DEV&gt;</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="experience.html">Experience</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="education.html" class="active">Education</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark mode">
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="mobile-nav-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <section class="section-container animate-slide-up">
+            <h1 class="section-title">Education Profile</h1>
+            <p style="color: var(--text-secondary); max-width: 600px; margin-bottom: 3rem;">
+                My official academic roadmap, grades, and ongoing university engineering courses.
+            </p>
+
+            <div class="edu-grid">
+                <!-- B.Tech -->
+                <div class="glass-card edu-card">
+                    <span style="font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--primary-color);">2023 - 2027 (Undergrad)</span>
+                    <h2 style="font-size: 1.4rem; margin: 0.5rem 0;">B.Tech in Computer Science Engineering</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.75rem;">
+                        <strong>University:</strong> Biju Patnaik University of Technology (BPUT), Odisha<br>
+                        <strong>College:</strong> Indira Gandhi Institute of Technology (IGIT), Sarang
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                        Focusing on data structures, design & analysis of algorithms, database management, computer networks, and operating systems.
+                    </p>
+                    <div class="edu-gpa">CGPA: 9.22</div>
+                </div>
+
+                <!-- CHSE -->
+                <div class="glass-card edu-card" style="border-top-color: var(--accent-color);">
+                    <span style="font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--accent-color);">2021 - 2023</span>
+                    <h2 style="font-size: 1.4rem; margin: 0.5rem 0;">Higher Secondary Education (Science)</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.75rem;">
+                        <strong>Board:</strong> Council of Higher Secondary Education (CHSE), Odisha
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                        Specialized scientific course tracks including Mathematics, Physics, Chemistry, and Computer Science.
+                    </p>
+                    <div class="edu-gpa" style="background-color: var(--primary-glow); color: var(--primary-color);">Score: 87.67%</div>
+                </div>
+
+                <!-- BSE -->
+                <div class="glass-card edu-card">
+                    <span style="font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--primary-color);">2020 - 2021</span>
+                    <h2 style="font-size: 1.4rem; margin: 0.5rem 0;">Secondary School Education</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.75rem;">
+                        <strong>Board:</strong> Board of Secondary Education (BSE), Odisha
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                        Core general education curriculum focusing on foundational mathematics, science structures, and social sciences.
+                    </p>
+                    <div class="edu-gpa">Score: 85.33%</div>
+                </div>
+            </div>
+
+            <!-- Certifications Section -->
+            <div class="fade-in-section" style="margin-top: 5rem; border-top: 1px solid var(--card-border); padding-top: 4rem;">
+                <h2 class="section-title">Technical Certifications</h2>
+                <div class="cert-grid">
+                    
+                    <!-- Certification 1 -->
+                    <div class="glass-card cert-card">
+                        <div class="cert-icon-box" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>
+                        </div>
+                        <div style="width: 100%;">
+                            <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">Core &amp; Advanced Java</h3>
+                            <span style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--primary-color); display: block; margin-bottom: 0.5rem;">Java Technocrat</span>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5;">Credentials covering OOPs architectures, Exception mappings, multithread socket structures, and database persistence routing.</p>
+                            <div class="cert-placeholder-img">
+                                <span>[ java_cert_placeholder.png ]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certification 2 -->
+                    <div class="glass-card cert-card">
+                        <div class="cert-icon-box" aria-hidden="true" style="color: var(--accent-color); background-color: var(--accent-glow);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </div>
+                        <div style="width: 100%;">
+                            <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">Web Development Internship</h3>
+                            <span style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent-color); display: block; margin-bottom: 0.5rem;">Acmegrade (IIT Bombay Collaboration)</span>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5;">Validates collaborative work on HTML5, CSS3, ES6 structures, and PHP relational endpoints integration.</p>
+                            <div class="cert-placeholder-img">
+                                <span>[ webdev_cert_placeholder.png ]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certification 3 -->
+                    <div class="glass-card cert-card">
+                        <div class="cert-icon-box" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72M2.5 12h19M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        </div>
+                        <div style="width: 100%;">
+                            <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">AI Tools &amp; Usage</h3>
+                            <span style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--primary-color); display: block; margin-bottom: 0.5rem;">Technical Training Academy</span>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.5;">Validates fluency with LLM API integrations, prompt designs, and AI assisted software prototyping.</p>
+                            <div class="cert-placeholder-img">
+                                <span>[ ai_cert_placeholder.png ]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-socials">
+                <a href="https://github.com/devkkx" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/kshirod-kumar-sahoo-2a0530296/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="mailto:kshirodsahoo2003@gmail.com" aria-label="Send Email">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+            </div>
+            <p class="footer-text">&copy; 2026 Kshirod Kumar Sahoo. All rights reserved. Portfolio designed for engineering recruitment.</p>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

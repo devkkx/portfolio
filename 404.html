@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404: Resource Not Found | Kshirod Kumar Sahoo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="glass-card" style="max-width: 600px; width: 100%; border-color: var(--accent-red); font-family: 'Fira Code', monospace; padding: 2.5rem;">
+        <!-- Terminal circles -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
+            <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: var(--accent-red);"></span>
+            <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f59e0b;"></span>
+            <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: var(--accent-green);"></span>
+        </div>
+
+        <h1 style="color: var(--accent-red); font-size: 2.5rem; margin-bottom: 1rem;">HTTP 404</h1>
+        <h2 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 1.5rem;">ERR_ROUTE_NOT_RESOLVED</h2>
+        
+        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 2rem; font-size: 0.95rem;">
+            The requested URI path could not be resolved by the virtual portfolio router. The page might have been moved, deleted, or you might have mistyped the endpoint.
+        </p>
+
+        <!-- Command simulation snippet -->
+        <div style="background-color: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); padding: 1rem; border-radius: 6px; margin-bottom: 2rem; font-size: 0.85rem;">
+            <span style="color: var(--accent-green);">guest@kshirod:~$</span> ping -c 1 page_route<br>
+            PING page_route (127.0.0.1) 56(84) bytes of data.<br>
+            From portfolio.local (127.0.0.1) icmp_seq=1 Destination Host Unreachable<br>
+            <span style="color: var(--accent-red);">--- page_route ping statistics --- 1 packets transmitted, 0 received, +1 errors, 100% packet loss</span>
+        </div>
+
+        <div class="btn-container">
+            <a href="index.html" class="btn btn-primary" aria-label="Navigate back to safety (Home)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Return to Home
+            </a>
+            <a href="contact.html" class="btn btn-secondary" aria-label="Report routing bug via Contact">Report Route Bug</a>
+        </div>
+    </div>
+
+    <!-- Minimal JS to bind theme toggle and canvas background -->
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

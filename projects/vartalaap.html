@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VartAlaap - Real-Time Full Stack Communication Platform by Kshirod Kumar Sahoo. System architecture, Spring Boot, WebSockets, and database persistence details.">
+    <title>VartAlaap Project Details | Kshirod Kumar Sahoo</title>
+    <!-- Relative paths since we are in projects/ subdirectory -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    
+    <style>
+        .project-detail-layout {
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .tech-spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .tech-spec-table th, .tech-spec-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--card-border);
+            text-align: left;
+        }
+
+        .tech-spec-table th {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* SVG Architecture Styles */
+        .arch-svg-container {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        body.light-theme .arch-svg-container {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .arch-node {
+            fill: var(--card-bg);
+            stroke: var(--card-border);
+            stroke-width: 1.5;
+            transition: stroke var(--transition-normal), fill var(--transition-normal);
+        }
+
+        .arch-node.highlight {
+            stroke: var(--primary-color);
+            fill: var(--primary-glow);
+            filter: drop-shadow(0 0 8px var(--primary-color));
+        }
+
+        .arch-node-text {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            fill: var(--text-primary);
+            text-anchor: middle;
+            font-weight: 500;
+        }
+
+        .arch-line {
+            stroke: var(--card-border);
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 4 4;
+            animation: dash 10s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -100;
+            }
+        }
+
+        /* Interactive mockup UI styles */
+        .mock-console {
+            background-color: #030712;
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            font-family: 'Fira Code', monospace;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .mock-channel-title {
+            color: var(--primary-color);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .mock-chat-window {
+            height: 120px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .system-msg {
+            color: var(--accent-green);
+        }
+
+        .vartalaap-mode-btn {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .vartalaap-mode-btn.active, .vartalaap-mode-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--text-primary);
+            background-color: var(--primary-glow);
+        }
+
+        @media (max-width: 900px) {
+            .project-detail-layout {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="site-header">
+        <nav class="nav-container" aria-label="Main Navigation">
+            <div class="logo">
+                <a href="../index.html" aria-label="Kshirod Kumar Sahoo Home">
+                    <span>KSHIROD</span>
+                    <span class="logo-tag">&lt;DEV&gt;</span>
+                </a>
+            </div>
+            <!-- All page routes point up one directory level -->
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About Me</a></li>
+                <li><a href="../skills.html">Skills</a></li>
+                <li><a href="../experience.html">Experience</a></li>
+                <li><a href="../projects.html" class="active">Projects</a></li>
+                <li><a href="../education.html">Education</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark mode">
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="mobile-nav-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <section class="section-container animate-slide-up">
+            <a href="../projects.html" style="display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; font-size: 0.9rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Projects
+            </a>
+
+            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">VartAlaap</h1>
+            <span style="font-family: 'Fira Code', monospace; color: var(--primary-color); display: block; margin-bottom: 2rem;">Real-Time Full Stack Communication Platform</span>
+
+            <div class="project-detail-layout">
+                <!-- Left column: details -->
+                <div>
+                    <!-- Glassmorphic Info Banner -->
+                    <div class="glass-card" style="padding: 1.5rem; margin-bottom: 2rem; border-color: rgba(56,189,248,0.15);">
+                        <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0;">
+                            <strong>VartAlaap</strong> is an interactive real-time messaging application designed to support high-concurrency client updates. It establishes instantaneous message frame transitions between user browsers and a Spring Boot backend over persistent WebSockets.
+                        </p>
+                    </div>
+
+                    <h2>Problem Statement</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7;">
+                        Standard HTTP request-response architectures suffer from polling overhead and latency lags, making them unsuitable for real-time collaboration. Integrating real-time state synchronization, secure isolation between channel modes (work, study, personal), and supporting responsive AI chatbot components in a unified framework presents significant multi-threading and lifecycle challenge.
+                    </p>
+
+                    <h2>Proposed Architecture &amp; Solution</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7;">
+                        The system uses **Spring Boot's native WebSocket messaging module** to construct full-duplex socket tunnels. Message packets are framed and serialized in JSON formats, processed by controller endpoints, and saved to a MySQL schema. An asynchronous event-handling thread dispatches chat histories, online statistics, and triggers AI integrations for the chat companion.
+                    </p>
+
+                    <!-- Systems Architecture Diagram -->
+                    <h3>Interactive System Architecture</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.875rem;">
+                        Select a chat channel below to visualize the active WebSocket message routing across the server architecture block.
+                    </p>
+
+                    <!-- Mode Select -->
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+                        <button class="vartalaap-mode-btn active" data-mode="work">Work Channel</button>
+                        <button class="vartalaap-mode-btn" data-mode="personal">Personal Chat</button>
+                        <button class="vartalaap-mode-btn" data-mode="study">Study Group</button>
+                        <button class="vartalaap-mode-btn" data-mode="ai">AI Companion</button>
+                    </div>
+
+                    <div class="arch-svg-container" aria-label="Interactive systems architecture diagram">
+                        <svg viewBox="0 0 600 200" width="100%">
+                            <!-- Connections / Flows -->
+                            <path class="arch-line" d="M100 100 H 200"></path>
+                            <path class="arch-line" d="M260 100 H 360"></path>
+                            <path class="arch-line" d="M420 100 Q 480 60 500 50"></path>
+                            <path class="arch-line" d="M420 100 Q 480 140 500 150"></path>
+
+                            <!-- Node 1: Client UI -->
+                            <g>
+                                <rect class="arch-node highlight" id="client-ui" x="20" y="70" width="80" height="60" rx="6"></rect>
+                                <text class="arch-node-text" x="60" y="105">Client UI</text>
+                            </g>
+
+                            <!-- Node 2: WebSocket Conn -->
+                            <g>
+                                <rect class="arch-node" id="websocket-conn" x="180" y="70" width="100" height="60" rx="6"></rect>
+                                <text class="arch-node-text" x="230" y="95">WebSocket</text>
+                                <text class="arch-node-text" x="230" y="112">Protocol</text>
+                            </g>
+
+                            <!-- Node 3: Spring Boot -->
+                            <g>
+                                <rect class="arch-node" id="spring-boot" x="340" y="70" width="100" height="60" rx="6"></rect>
+                                <text class="arch-node-text" x="390" y="95">Spring Boot</text>
+                                <text class="arch-node-text" x="390" y="112">Backend</text>
+                            </g>
+
+                            <!-- Node 4: Database -->
+                            <g>
+                                <rect class="arch-node" id="database" x="480" y="20" width="100" height="50" rx="6"></rect>
+                                <text class="arch-node-text" x="530" y="48">MySQL DB</text>
+                            </g>
+
+                            <!-- Node 5: AI Engine -->
+                            <g>
+                                <rect class="arch-node" id="ai-engine" x="480" y="130" width="100" height="50" rx="6"></rect>
+                                <text class="arch-node-text" x="530" y="158">AI API</text>
+                            </g>
+                        </svg>
+
+                        <!-- Mock Live CLI console -->
+                        <div class="mock-console">
+                            <div class="mock-channel-title">Work Channel Active</div>
+                            <div class="mock-chat-window">
+                                [Client-1]: Pull request #42 compiled successfully.<br>
+                                [Manager]: Excellent! Let's deploy to staging server.<br>
+                                <span class="system-msg">[WebSocket] Broadcast sent to 5 subscribers.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Challenges &amp; Solutions</h2>
+                    <ul class="exp-list" style="margin-bottom: 2rem;">
+                        <li>
+                            <strong>Connection Lifecycle Dropping:</strong> Idle socket closures were solved by introducing a JavaScript ping/pong heartbeat interval every 30 seconds to refresh active connections.
+                        </li>
+                        <li>
+                            <strong>Session Thread Safety:</strong> Multi-client interactions on dynamic chat channels could trigger ConcurrentModificationExceptions in Java maps. Resolved by wrapping session stores in <code>ConcurrentHashMap</code> data structures and locking channel mutations with reentrant lock blocks.
+                        </li>
+                        <li>
+                            <strong>Database Write Throttle:</strong> High message throughput could exhaust the MySQL pool. Solved by decoupling chat reads from writes, routing incoming chat logs to an in-memory queue, and executing batch insertions in database transactions.
+                        </li>
+                    </ul>
+
+                    <h2>Future Enhancements</h2>
+                    <ul class="exp-list" style="margin-bottom: 2rem;">
+                        <li>OAuth2 integration for secure user profile authentication.</li>
+                        <li>Support for voice message transmission and media attachments binary encoding.</li>
+                        <li>Clustered scaling of WebSocket nodes using Redis Pub/Sub channels synchronization.</li>
+                    </ul>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 3rem;">
+                        <a href="https://github.com/devkkx" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            View GitHub Repository
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right column: Spec sidebar -->
+                <aside class="glass-card" style="padding: 1.5rem; position: sticky; top: 100px;">
+                    <h3 style="font-size: 1.2rem; border-bottom: 1px solid var(--card-border); padding-bottom: 0.5rem; margin-bottom: 1rem;">Project Tech Specs</h3>
+                    <table class="tech-spec-table">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Primary Language</td>
+                            <td>Java 17</td>
+                        </tr>
+                        <tr>
+                            <td>Backend Core</td>
+                            <td>Spring Boot 3.x</td>
+                        </tr>
+                        <tr>
+                            <td>Communication</td>
+                            <td>RFC 6455 WebSocket</td>
+                        </tr>
+                        <tr>
+                            <td>Relational Database</td>
+                            <td>MySQL 8.0</td>
+                        </tr>
+                        <tr>
+                            <td>Connection Pool</td>
+                            <td>HikariCP</td>
+                        </tr>
+                        <tr>
+                            <td>Frontend UI</td>
+                            <td>HTML5, CSS3, JavaScript</td>
+                        </tr>
+                        <tr>
+                            <td>Architectural Model</td>
+                            <td>MVC / Pub-Sub Event</td>
+                        </tr>
+                    </table>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-socials">
+                <a href="https://github.com/devkkx" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/kshirod-kumar-sahoo-2a0530296/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="mailto:kshirodsahoo2003@gmail.com" aria-label="Send Email">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+            </div>
+            <p class="footer-text">&copy; 2026 Kshirod Kumar Sahoo. All rights reserved. Portfolio designed for engineering recruitment.</p>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/projects.js"></script>
+</body>
+</html>

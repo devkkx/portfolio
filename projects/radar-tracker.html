@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ASTERIX CAT240 Radar Data Processor & Target Tracker. Deep dive into Kalman state covariance equations, signal filtering, and real-time PPI sweep.">
+    <title>Radar Tracker Project Details | Kshirod Kumar Sahoo</title>
+    <!-- Relative paths since we are in projects/ subdirectory -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    
+    <style>
+        .radar-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .radar-sim-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .radar-canvas-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #030712;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            overflow: hidden;
+            padding: 1rem;
+        }
+
+        #radar-canvas {
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 1/1;
+            cursor: crosshair;
+        }
+
+        .radar-controls-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .radar-console {
+            background-color: #020617;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: var(--border-radius);
+            font-family: 'Fira Code', monospace;
+            padding: 1.25rem;
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            height: 180px;
+            overflow-y: auto;
+            line-height: 1.5;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .math-block {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-left: 3px solid var(--accent-color);
+            padding: 1.25rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+        
+        body.light-theme .math-block {
+            background-color: rgba(15, 23, 42, 0.02);
+        }
+
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .pipeline-step {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            background-color: var(--primary-glow);
+            color: var(--primary-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            border: 1px solid var(--card-border);
+        }
+
+        .pipeline-arrow {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        @media (max-width: 990px) {
+            .radar-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="site-header">
+        <nav class="nav-container" aria-label="Main Navigation">
+            <div class="logo">
+                <a href="../index.html" aria-label="Kshirod Kumar Sahoo Home">
+                    <span>KSHIROD</span>
+                    <span class="logo-tag">&lt;DEV&gt;</span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About Me</a></li>
+                <li><a href="../skills.html">Skills</a></li>
+                <li><a href="../experience.html">Experience</a></li>
+                <li><a href="../projects.html" class="active">Projects</a></li>
+                <li><a href="../education.html">Education</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark mode">
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="mobile-nav-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <section class="section-container animate-slide-up">
+            <a href="../projects.html" style="display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; font-size: 0.9rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Projects
+            </a>
+
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">ASTERIX CAT240 Radar Data Processor &amp; Tracker</h1>
+            <span style="font-family: 'Fira Code', monospace; color: var(--primary-color); display: block; margin-bottom: 2rem;">Real-Time Telemetry Processing &amp; Target Kinematics Estimator</span>
+
+            <div class="radar-layout">
+                <!-- Left: Details -->
+                <div>
+                    <div class="glass-card" style="padding: 1.5rem; margin-bottom: 2rem; border-color: rgba(56,189,248,0.15);">
+                        <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0;">
+                            This project implements a system designed to decode, parse, filter, and track raw radar target coordinates generated in **EUROCONTROL ASTERIX CAT240** format, visualising smoothed targets on a simulated Plan Position Indicator (PPI) sweep.
+                        </p>
+                    </div>
+
+                    <h2>Problem Statement</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7;">
+                        Raw radar sensors generate analog scans filled with thermal clutter, atmospheric noise, and signal reflections. Attempting to parse binary packets in real-time while maintaining target tracks causes severe CPU choke points. Without statistical filtering, displaying raw coordinates results in erratic target jumping and false track pings.
+                    </p>
+
+                    <h2>The Data Processing Pipeline</h2>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        The system processes raw inputs sequentially across isolated modules to ensure low telemetry latency:
+                    </p>
+
+                    <div class="pipeline-flow">
+                        <span class="pipeline-step">ASTERIX Binary Stream</span>
+                        <span class="pipeline-arrow">➔</span>
+                        <span class="pipeline-step">Parser Engine</span>
+                        <span class="pipeline-arrow">➔</span>
+                        <span class="pipeline-step">CFAR Noise Filter</span>
+                        <span class="pipeline-arrow">➔</span>
+                        <span class="pipeline-step">Spatial Clustering</span>
+                        <span class="pipeline-arrow">➔</span>
+                        <span class="pipeline-step">Kalman Tracker</span>
+                        <span class="pipeline-arrow">➔</span>
+                        <span class="pipeline-step">PPI Visualizer</span>
+                    </div>
+
+                    <h2>Kalman Filtering Mathematics</h2>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        To smooth measurement errors, we implement a **linear 2D Kalman Filter** modeling kinematic states: position ($p_x, p_y$) and velocity ($v_x, v_y$).
+                    </p>
+
+                    <div class="math-block">
+                        // State Vector:<br>
+                        X = [p_x, p_y, v_x, v_y]^T<br>
+                        <br>
+                        // Prediction Step:<br>
+                        X_pred = F * X_prev<br>
+                        P_pred = F * P_prev * F^T + Q<br>
+                        <br>
+                        // Measurement Update:<br>
+                        K = P_pred * H^T * (H * P_pred * H^T + R)^-1<br>
+                        X_est = X_pred + K * (Z - H * X_pred)<br>
+                        P_est = (I - K * H) * P_pred
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.9rem; line-height: 1.6;">
+                        Where <code>F</code> represents the state transition model, <code>P</code> is the state estimation covariance, <code>Q</code> models process covariance (acceleration noise), <code>R</code> represents measurement noise covariance (sensor uncertainty), and <code>Z</code> is the actual measured target position vector.
+                    </p>
+
+                    <h2>Challenges &amp; Solutions</h2>
+                    <ul class="exp-list" style="margin-bottom: 2rem;">
+                        <li>
+                            <strong>ASTERIX Bit-Oriented Decoding:</strong> Decoupling coordinate bytes from binary bit fields is CPU intensive. Solved by implementing dynamic lookup schemas and byte offsets pre-compiling.
+                        </li>
+                        <li>
+                            <strong>Target Identity Crossings:</strong> When two targets pass closely, the tracker can swap their identities. Solved by implementing the Hungarian Algorithm on Euclidean distance cost matrices.
+                        </li>
+                        <li>
+                            <strong>OpenCV rendering lag:</strong> Generating high-resolution radar circles on video streams causes memory leaks. Resolved by rendering to a double-buffered matrix canvas and drawing vectors asynchronously.
+                        </li>
+                    </ul>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 3rem; margin-bottom: 2rem;">
+                        <a href="https://github.com/devkkx" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            View GitHub Repository
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Interactive Radar PPI Sweep & Diagnostics -->
+                <aside class="radar-sim-grid">
+                    <h3 style="font-size: 1.25rem; border-bottom: 1px solid var(--card-border); padding-bottom: 0.5rem; color: var(--primary-color);">Interactive PPI Display</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 1rem;">
+                        Click anywhere on the radar scope below to inject a raw moving coordinate target, and toggle tracking systems to see Kalman smoothing.
+                    </p>
+
+                    <!-- Radar canvas scope -->
+                    <div class="radar-canvas-container">
+                        <canvas id="radar-canvas" width="500" height="500"></canvas>
+                    </div>
+
+                    <!-- Radar Control Box -->
+                    <div class="radar-controls-panel">
+                        <div style="display: flex; gap: 0.5rem; width: 100%;">
+                            <button id="radar-toggle-noise" class="btn btn-secondary" style="flex: 1; padding: 0.5rem; font-size: 0.8rem;">Filter Radar Noise</button>
+                            <button id="radar-toggle-filter" class="btn btn-primary" style="flex: 1; padding: 0.5rem; font-size: 0.8rem;">Tracking Mode: Kalman Filter</button>
+                        </div>
+
+                        <!-- Telemetry logs -->
+                        <div class="radar-console" id="radar-event-log" role="log" aria-live="polite">
+                            [17:00:49] System status: ACTIVE<br>
+                            [17:00:49] ASTERIX CAT240 stream buffer bound.<br>
+                            [17:00:49] Kalman process covariance initialized (Q_acc=0.05).<br>
+                            [17:00:49] Concentric range markers set at 25%, 50%, 75%, 100%.<br>
+                            [17:00:49] Waiting for telemetry scan sweep...
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-socials">
+                <a href="https://github.com/devkkx" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/kshirod-kumar-sahoo-2a0530296/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="mailto:kshirodsahoo2003@gmail.com" aria-label="Send Email">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+            </div>
+            <p class="footer-text">&copy; 2026 Kshirod Kumar Sahoo. All rights reserved. Portfolio designed for engineering recruitment.</p>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/projects.js"></script>
+</body>
+</html>
