@@ -4,8 +4,8 @@
     <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="VartAlaap - Real-Time Full Stack Communication Platform by Kshirod Kumar Sahoo. System architecture, Spring Boot, WebSockets, and database persistence details.">
-    <title>VartAlaap Project Details | Kshirod Kumar Sahoo</title>
+    <meta name="description" content="Multi-Vendor E-Commerce SaaS Platform - Full Stack Web Application by Kshirod Kumar Sahoo. Role-based authentication, vendor onboarding, product catalog management, and database design.">
+    <title>E-Commerce SaaS Details | Kshirod Kumar Sahoo</title>
     <!-- Relative paths since we are in projects/ subdirectory -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
@@ -37,56 +37,7 @@
             font-weight: 600;
         }
 
-        /* SVG Architecture Styles */
-        .arch-svg-container {
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--card-border);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        body.light-theme .arch-svg-container {
-            background-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .arch-node {
-            fill: var(--card-bg);
-            stroke: var(--card-border);
-            stroke-width: 1.5;
-            transition: stroke var(--transition-normal), fill var(--transition-normal);
-        }
-
-        .arch-node.highlight {
-            stroke: var(--primary-color);
-            fill: var(--primary-glow);
-            filter: drop-shadow(0 0 8px var(--primary-color));
-        }
-
-        .arch-node-text {
-            font-family: 'Fira Code', monospace;
-            font-size: 11px;
-            fill: var(--text-primary);
-            text-anchor: middle;
-            font-weight: 500;
-        }
-
-        .arch-line {
-            stroke: var(--card-border);
-            stroke-width: 2;
-            fill: none;
-            stroke-dasharray: 4 4;
-            animation: dash 10s linear infinite;
-        }
-
-        @keyframes dash {
-            to {
-                stroke-dashoffset: -100;
-            }
-        }
-
-        /* Interactive mockup UI styles */
+        /* Interactive role switcher UI */
         .mock-console {
             background-color: #030712;
             border: 1px solid var(--card-border);
@@ -96,7 +47,7 @@
             margin-top: 1.5rem;
         }
 
-        .mock-channel-title {
+        .mock-role-title {
             color: var(--primary-color);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding-bottom: 0.5rem;
@@ -105,8 +56,8 @@
             font-weight: 600;
         }
 
-        .mock-chat-window {
-            height: 120px;
+        .mock-log-window {
+            height: 140px;
             overflow-y: auto;
             font-size: 0.85rem;
             color: var(--text-secondary);
@@ -117,7 +68,7 @@
             color: var(--accent-green);
         }
 
-        .vartalaap-mode-btn {
+        .role-mode-btn {
             background: transparent;
             border: 1px solid var(--card-border);
             color: var(--text-secondary);
@@ -128,7 +79,7 @@
             transition: all var(--transition-fast);
         }
 
-        .vartalaap-mode-btn.active, .vartalaap-mode-btn:hover {
+        .role-mode-btn.active, .role-mode-btn:hover {
             border-color: var(--primary-color);
             color: var(--text-primary);
             background-color: var(--primary-glow);
@@ -159,7 +110,6 @@
                     <span class="logo-tag">&lt;DEV&gt;</span>
                 </a>
             </div>
-            <!-- All page routes point up one directory level -->
             <ul class="nav-links">
                 <li><a href="../index.html">Home</a></li>
                 <li><a href="../about.html">About Me</a></li>
@@ -203,8 +153,8 @@
                 Back to Projects
             </a>
 
-            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">VartAlaap</h1>
-            <span style="font-family: 'Fira Code', monospace; color: var(--primary-color); display: block; margin-bottom: 2rem;">Real-Time Full Stack Communication Platform</span>
+            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Multi-Vendor E-Commerce SaaS Platform</h1>
+            <span style="font-family: 'Fira Code', monospace; color: var(--primary-color); display: block; margin-bottom: 2rem;">Multi-Tenant Full Stack Marketplace Engine</span>
 
             <div class="project-detail-layout">
                 <!-- Left column: details -->
@@ -212,108 +162,64 @@
                     <!-- Glassmorphic Info Banner -->
                     <div class="glass-card" style="padding: 1.5rem; margin-bottom: 2rem; border-color: rgba(56,189,248,0.15);">
                         <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0;">
-                            <strong>VartAlaap</strong> is an interactive real-time messaging application designed to support high-concurrency client updates. It establishes instantaneous message frame transitions between user browsers and a Spring Boot backend over persistent WebSockets.
+                            <strong>E-Commercial SaaS</strong> is a modular multi-vendor marketplace platform designed to separate administrative platform governance, seller vendor onboarding with KYC verification, dynamic inventory management, and buyer checkout workflows.
                         </p>
                     </div>
 
                     <h2>Problem Statement</h2>
                     <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7;">
-                        Standard HTTP request-response architectures suffer from polling overhead and latency lags, making them unsuitable for real-time collaboration. Integrating real-time state synchronization, secure isolation between channel modes (work, study, personal), and supporting responsive AI chatbot components in a unified framework presents significant multi-threading and lifecycle challenge.
+                        Standard single-seller online stores cannot scale to support multi-vendor market operations. Building a SaaS MVP requires strict role-based access control (RBAC), multi-tenant user table isolation, vendor KYC submission pipelines, dynamic catalog management, and cart transaction handling without cross-tenant data leaks.
                     </p>
 
                     <h2>Proposed Architecture &amp; Solution</h2>
                     <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7;">
-                        The system uses **Spring Boot's native WebSocket messaging module** to construct full-duplex socket tunnels. Message packets are framed and serialized in JSON formats, processed by controller endpoints, and saved to a MySQL schema. An asynchronous event-handling thread dispatches chat histories, online statistics, and triggers AI integrations for the chat companion.
+                        The system divides responsibilities into dedicated modules (<code>/buyer</code>, <code>/seller</code>, <code>/shared</code>):
                     </p>
+                    <ul class="exp-list" style="margin-bottom: 1.5rem;">
+                        <li><strong>Super Admin Module:</strong> Platform maintenance, vendor onboarding validation, user table governance, and global transaction logging.</li>
+                        <li><strong>Seller Vendor Module:</strong> Merchant registration UI, credential hashing, KYC submission API, product catalog CRUD, and inventory tracking.</li>
+                        <li><strong>Buyer Module:</strong> Public product storefront browsing, session-based cart management, and order placement pipeline.</li>
+                    </ul>
 
-                    <!-- Systems Architecture Diagram -->
-                    <h3>Interactive System Architecture</h3>
+                    <!-- Interactive Role Workflow Console -->
+                    <h3>Interactive Multi-Role Workflow Demo</h3>
                     <p style="color: var(--text-secondary); font-size: 0.875rem;">
-                        Select a chat channel below to visualize the active WebSocket message routing across the server architecture block.
+                        Select a user role below to simulate the backend authentication and transaction logs in the SaaS pipeline.
                     </p>
 
-                    <!-- Mode Select -->
+                    <!-- Role Select Buttons -->
                     <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
-                        <button class="vartalaap-mode-btn active" data-mode="work">Work Channel</button>
-                        <button class="vartalaap-mode-btn" data-mode="personal">Personal Chat</button>
-                        <button class="vartalaap-mode-btn" data-mode="study">Study Group</button>
-                        <button class="vartalaap-mode-btn" data-mode="ai">AI Companion</button>
+                        <button class="role-mode-btn active" onclick="switchRole('admin')">Super Admin Panel</button>
+                        <button class="role-mode-btn" onclick="switchRole('seller')">Seller / Merchant Dashboard</button>
+                        <button class="role-mode-btn" onclick="switchRole('buyer')">Buyer Storefront &amp; Cart</button>
                     </div>
 
-                    <div class="arch-svg-container" aria-label="Interactive systems architecture diagram">
-                        <svg viewBox="0 0 600 200" width="100%">
-                            <!-- Connections / Flows -->
-                            <path class="arch-line" d="M100 100 H 200"></path>
-                            <path class="arch-line" d="M260 100 H 360"></path>
-                            <path class="arch-line" d="M420 100 Q 480 60 500 50"></path>
-                            <path class="arch-line" d="M420 100 Q 480 140 500 150"></path>
-
-                            <!-- Node 1: Client UI -->
-                            <g>
-                                <rect class="arch-node highlight" id="client-ui" x="20" y="70" width="80" height="60" rx="6"></rect>
-                                <text class="arch-node-text" x="60" y="105">Client UI</text>
-                            </g>
-
-                            <!-- Node 2: WebSocket Conn -->
-                            <g>
-                                <rect class="arch-node" id="websocket-conn" x="180" y="70" width="100" height="60" rx="6"></rect>
-                                <text class="arch-node-text" x="230" y="95">WebSocket</text>
-                                <text class="arch-node-text" x="230" y="112">Protocol</text>
-                            </g>
-
-                            <!-- Node 3: Spring Boot -->
-                            <g>
-                                <rect class="arch-node" id="spring-boot" x="340" y="70" width="100" height="60" rx="6"></rect>
-                                <text class="arch-node-text" x="390" y="95">Spring Boot</text>
-                                <text class="arch-node-text" x="390" y="112">Backend</text>
-                            </g>
-
-                            <!-- Node 4: Database -->
-                            <g>
-                                <rect class="arch-node" id="database" x="480" y="20" width="100" height="50" rx="6"></rect>
-                                <text class="arch-node-text" x="530" y="48">MySQL DB</text>
-                            </g>
-
-                            <!-- Node 5: AI Engine -->
-                            <g>
-                                <rect class="arch-node" id="ai-engine" x="480" y="130" width="100" height="50" rx="6"></rect>
-                                <text class="arch-node-text" x="530" y="158">AI API</text>
-                            </g>
-                        </svg>
-
-                        <!-- Mock Live CLI console -->
-                        <div class="mock-console">
-                            <div class="mock-channel-title">Work Channel Active</div>
-                            <div class="mock-chat-window">
-                                [Client-1]: Pull request #42 compiled successfully.<br>
-                                [Manager]: Excellent! Let's deploy to staging server.<br>
-                                <span class="system-msg">[WebSocket] Broadcast sent to 5 subscribers.</span>
-                            </div>
+                    <!-- Role Terminal Console -->
+                    <div class="mock-console">
+                        <div class="mock-role-title" id="role-title">Super Admin Governance Panel Active</div>
+                        <div class="mock-log-window" id="role-log">
+                            [AUTH]: Super Admin authenticated session.<br>
+                            [KYC]: 3 seller merchant applications pending review.<br>
+                            [DB]: MySQL user table queries verified (RBAC: LEVEL_0).<br>
+                            <span class="system-msg">[SYSTEM] Platform health 100%. Payment gateway endpoints active.</span>
                         </div>
                     </div>
 
-                    <h2>Challenges &amp; Solutions</h2>
+                    <h2 style="margin-top: 2.5rem;">Key Technical Accomplishments</h2>
                     <ul class="exp-list" style="margin-bottom: 2rem;">
                         <li>
-                            <strong>Connection Lifecycle Dropping:</strong> Idle socket closures were solved by introducing a JavaScript ping/pong heartbeat interval every 30 seconds to refresh active connections.
+                            <strong>Role-Based Access Control (RBAC):</strong> Engineered session-driven authorization isolating Super Admin privileges from Merchant Sellers and Public Buyers.
                         </li>
                         <li>
-                            <strong>Session Thread Safety:</strong> Multi-client interactions on dynamic chat channels could trigger ConcurrentModificationExceptions in Java maps. Resolved by wrapping session stores in <code>ConcurrentHashMap</code> data structures and locking channel mutations with reentrant lock blocks.
+                            <strong>Relational Database Design:</strong> Designed MySQL tables linking users, vendor profiles, product inventory SKUs, and buyer order transactions.
                         </li>
                         <li>
-                            <strong>Database Write Throttle:</strong> High message throughput could exhaust the MySQL pool. Solved by decoupling chat reads from writes, routing incoming chat logs to an in-memory queue, and executing batch insertions in database transactions.
+                            <strong>Vendor KYC Pipeline:</strong> Implemented structured signup endpoints storing vendor credentials safely and managing verification statuses.
                         </li>
-                    </ul>
-
-                    <h2>Future Enhancements</h2>
-                    <ul class="exp-list" style="margin-bottom: 2rem;">
-                        <li>OAuth2 integration for secure user profile authentication.</li>
-                        <li>Support for voice message transmission and media attachments binary encoding.</li>
-                        <li>Clustered scaling of WebSocket nodes using Redis Pub/Sub channels synchronization.</li>
                     </ul>
 
                     <div style="display: flex; gap: 1rem; margin-top: 3rem;">
-                        <a href="https://github.com/devkkx/VARTALAAP" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        <a href="https://github.com/devkkx/e-commercial" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                             View GitHub Repository
                         </a>
@@ -329,32 +235,32 @@
                             <th>Value</th>
                         </tr>
                         <tr>
-                            <td>Primary Language</td>
-                            <td>Java 17</td>
-                        </tr>
-                        <tr>
-                            <td>Backend Core</td>
-                            <td>Spring Boot 3.x</td>
-                        </tr>
-                        <tr>
-                            <td>Communication</td>
-                            <td>RFC 6455 WebSocket</td>
+                            <td>Primary Backend</td>
+                            <td>PHP 8.x Engine</td>
                         </tr>
                         <tr>
                             <td>Relational Database</td>
-                            <td>MySQL 8.0</td>
+                            <td>MySQL Schema</td>
                         </tr>
                         <tr>
-                            <td>Connection Pool</td>
-                            <td>HikariCP</td>
+                            <td>Architecture</td>
+                            <td>Multi-Tenant SaaS / MVC</td>
+                        </tr>
+                        <tr>
+                            <td>Security Model</td>
+                            <td>RBAC &amp; Credential Hashing</td>
+                        </tr>
+                        <tr>
+                            <td>Modules</td>
+                            <td>Buyer, Seller, Admin, Shared</td>
                         </tr>
                         <tr>
                             <td>Frontend UI</td>
                             <td>HTML5, CSS3, JavaScript</td>
                         </tr>
                         <tr>
-                            <td>Architectural Model</td>
-                            <td>MVC / Pub-Sub Event</td>
+                            <td>Repository Link</td>
+                            <td><a href="https://github.com/devkkx/e-commercial" target="_blank" rel="noopener noreferrer" style="color: var(--primary-color);">devkkx/e-commercial</a></td>
                         </tr>
                     </table>
                 </aside>
@@ -382,6 +288,35 @@
 
     <!-- JS Scripts -->
     <script src="../js/main.js"></script>
-    <script src="../js/projects.js"></script>
+    <script>
+        function switchRole(role) {
+            const titleEl = document.getElementById('role-title');
+            const logEl = document.getElementById('role-log');
+            const btns = document.querySelectorAll('.role-mode-btn');
+            
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (role === 'admin') {
+                titleEl.textContent = "Super Admin Governance Panel Active";
+                logEl.innerHTML = `[AUTH]: Super Admin authenticated session.<br>
+                                   [KYC]: 3 seller merchant applications pending review.<br>
+                                   [DB]: MySQL user table queries verified (RBAC: LEVEL_0).<br>
+                                   <span class="system-msg">[SYSTEM] Platform health 100%. Payment gateway endpoints active.</span>`;
+            } else if (role === 'seller') {
+                titleEl.textContent = "Seller / Merchant Dashboard Active";
+                logEl.innerHTML = `[AUTH]: Merchant Seller login successful (User: seller_01).<br>
+                                   [CATALOG]: Product SKU #8841 (Electronics) added to inventory.<br>
+                                   [KYC Status]: VERIFIED (Document ID: KYC_OK_99).<br>
+                                   <span class="system-msg">[MERCHANT] Inventory status updated across storefront.</span>`;
+            } else if (role === 'buyer') {
+                titleEl.textContent = "Buyer Storefront & Cart Session Active";
+                logEl.innerHTML = `[STOREFRONT]: Public product catalog loaded (24 items).<br>
+                                   [CART]: Added 2x SKU #8841 to shopping cart session.<br>
+                                   [CHECKOUT]: Order #ORD-4029 created in MySQL table.<br>
+                                   <span class="system-msg">[CHECKOUT] Payment response: SUCCESS. Order confirmation sent.</span>`;
+            }
+        }
+    </script>
 </body>
 </html>

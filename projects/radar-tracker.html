@@ -184,16 +184,34 @@
                 <div>
                     <div class="glass-card" style="padding: 1.5rem; margin-bottom: 2rem; border-color: rgba(56,189,248,0.15);">
                         <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0;">
-                            This project implements a system designed to decode, parse, filter, and track raw radar target coordinates generated in **EUROCONTROL ASTERIX CAT240** format, visualising smoothed targets on a simulated Plan Position Indicator (PPI) sweep.
+                            This project implements a system designed to decode, parse, filter, and track raw radar target coordinates generated in <strong>EUROCONTROL ASTERIX CAT240</strong> format, visualising smoothed targets on a simulated Plan Position Indicator (PPI) sweep.
                         </p>
+                        <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+                            <span style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--primary-color);">Standard: EUROCONTROL ASTERIX CAT 240 v1.3</span>
+                            <a href="https://www.eurocontrol.int/sites/default/files/content/documents/nm/asterix/20150513-asterix-cat240-v1.3.pdf" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; color: var(--accent-color); text-decoration: underline; display: flex; align-items: center; gap: 0.3rem;">
+                                📄 Official Specification PDF
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            </a>
+                        </div>
                     </div>
 
                     <h2>Problem Statement</h2>
                     <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7;">
-                        Raw radar sensors generate analog scans filled with thermal clutter, atmospheric noise, and signal reflections. Attempting to parse binary packets in real-time while maintaining target tracks causes severe CPU choke points. Without statistical filtering, displaying raw coordinates results in erratic target jumping and false track pings.
+                        Raw radar sensors generate high-frequency analog video scans filled with thermal clutter, atmospheric noise, and ground reflections. Attempting to parse binary bit-streams in real-time while maintaining target tracks causes severe CPU choke points. Without statistical filtering, displaying raw coordinates results in erratic target jumping and false track pings.
                     </p>
 
-                    <h2>The Data Processing Pipeline</h2>
+                    <h2>ASTERIX CAT240 Binary Data Extraction</h2>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        In accordance with the <strong>EUROCONTROL ASTERIX Category 240 Specification</strong>, raw radar video is encoded into structured Data Items extracted from the binary payload stream:
+                    </p>
+                    <ul class="exp-list" style="margin-bottom: 1.5rem;">
+                        <li><strong>Data Item I240/010 (Data Source Identifier):</strong> Extracts System Area Code (SAC) and System Identification Code (SIC) identifying the transmitting radar station.</li>
+                        <li><strong>Data Item I240/020 (Video Record Header):</strong> Parses Azimuth Angle ($\theta$), Start Range ($R_{start}$), Cell Duration ($\Delta t$), and compression flags per sweep line.</li>
+                        <li><strong>Data Item I240/030 (Video Octet Stream):</strong> Extracts high-speed 8-bit / 16-bit raw amplitude amplitude cell samples per azimuth vector.</li>
+                        <li><strong>Data Item I240/040 (Video Cell Resolution):</strong> Maps cell indices $i$ to exact physical range coordinates ($R = R_{start} + i \cdot \Delta r$).</li>
+                    </ul>
+
+                    <h2>The Processing Pipeline</h2>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         The system processes raw inputs sequentially across isolated modules to ensure low telemetry latency:
                     </p>
@@ -201,7 +219,7 @@
                     <div class="pipeline-flow">
                         <span class="pipeline-step">ASTERIX Binary Stream</span>
                         <span class="pipeline-arrow">➔</span>
-                        <span class="pipeline-step">Parser Engine</span>
+                        <span class="pipeline-step">Parser Engine (I240)</span>
                         <span class="pipeline-arrow">➔</span>
                         <span class="pipeline-step">CFAR Noise Filter</span>
                         <span class="pipeline-arrow">➔</span>
@@ -214,7 +232,7 @@
 
                     <h2>Kalman Filtering Mathematics</h2>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
-                        To smooth measurement errors, we implement a **linear 2D Kalman Filter** modeling kinematic states: position ($p_x, p_y$) and velocity ($v_x, v_y$).
+                        To smooth measurement errors, we implement a <strong>linear 2D Kalman Filter</strong> modeling kinematic states: position ($p_x, p_y$) and velocity ($v_x, v_y$).
                     </p>
 
                     <div class="math-block">
@@ -247,8 +265,16 @@
                         </li>
                     </ul>
 
-                    <div style="display: flex; gap: 1rem; margin-top: 3rem; margin-bottom: 2rem;">
-                        <a href="https://github.com/devkkx" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <div style="display: flex; gap: 1rem; margin-top: 3rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                        <a href="../assets/PROJECT_REPORT_Kshirod_LRDE.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: linear-gradient(135deg, #0284c7, #2563eb);">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            View DRDO LRDE Project Report (PDF)
+                        </a>
+                        <a href="https://www.eurocontrol.int/sites/default/files/content/documents/nm/asterix/20150513-asterix-cat240-v1.3.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            EUROCONTROL CAT240 Spec (PDF)
+                        </a>
+                        <a href="https://github.com/devkkx" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                             View GitHub Repository
                         </a>
